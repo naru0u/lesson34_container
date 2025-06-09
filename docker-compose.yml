@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  web:
+    build: ./web
+    image: "dailyreport:web"
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - "db:db_container"
+    container_name: "drweb_container"
+  db:
+      build: ./db
+      image: "dailyreport:db"
+      ports:
+        - 4306:3306
+      expose:
+        - 3306
+      container_name: "drdb_container"
+      volumes:
+        - db_data:/ver/lib/mysql
+volumes:
+  db_data:
